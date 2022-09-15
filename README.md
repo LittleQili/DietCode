@@ -13,11 +13,11 @@
 - Build the Docker image that includes all the software dependencies required to
   run the experiments:
   ```Bash
-  DietCode$ docker-compose build tvm-dev
+  DietCode$ docker-compose build tvm-dev-fix
   ```
 - Create a running container out of the image:
   ```Bash
-  DietCode$ docker-compose run --rm tvm-dev
+  DietCode$ docker-compose run --rm tvm-dev-fix
   ```
 - Build the DietCode and the TVM baseline.
   ```Bash

@@ -18,7 +18,7 @@ if [ ! -f Makefile ]; then
               -DUSE_CUDNN=1 ..
 fi
 
-make -j 4
+make -j
 
 cd ${PROJECT_ROOT}/$1/python
 

@@ -1,8 +1,8 @@
 version: '2.3'
 
 services:
-    tvm-dev:
-        image: tvm-dev:DietCode
+    tvm-dev-fix:
+        image: tvm-dev-fix:DietCode
         build:
             context: ./dockerfiles
             dockerfile: tvm.Dockerfile

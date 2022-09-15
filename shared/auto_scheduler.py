@@ -16,6 +16,6 @@ def get_log_filename(auto_scheduler_name, wkl_name,):
     remove_log_file(log_filename)
     return log_filename
 
-runner_kwargs = {'repeat' : 3, 'min_repeat_ms' : 100, 'timeout' : 10}
+runner_kwargs = {'repeat' : 1, 'min_repeat_ms' : 300, 'timeout' : 90}
 measure_ctx = auto_scheduler.LocalRPCMeasureContext(**runner_kwargs)
 local_runner = auto_scheduler.LocalRunner(**runner_kwargs)

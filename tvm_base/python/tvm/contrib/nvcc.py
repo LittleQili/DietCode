@@ -89,6 +89,13 @@ def compile_cuda(code, target="ptx", arch=None, options=None, path_target=None):
     cmd += ["-o", file_target]
     cmd += [temp_code]
 
+    # with open(temp_code, 'r')as f:
+    #     temp_code_f = f.read()
+
+    # import time
+    # with open('/mnt/{}.cu'.format(time.time()), 'w') as f:
+    #     f.write(temp_code_f)
+
     # NOTE: ccbin option can be used to tell nvcc where to find the c++ compiler
     # just in case it is not in the path. On Windows it is not in the path by default.
     # However, we cannot use TVM_CXX_COMPILER_PATH because the runtime env.

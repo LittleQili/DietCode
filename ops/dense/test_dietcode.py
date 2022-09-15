@@ -67,7 +67,26 @@ def test_train_dynT():
                          fcublas_fixture=cuBLASDenseFixture,
                          sched_func_name_prefix='dense_{}xTx{}x{}'.format(B, I, H)
                          )
+                         
+@tvm_dev_decor
+def test_train_dynT():
+    B = 1
+    T = [4091, 4093, 4099, 4111]
+    I = 4093
+    H = 4093
 
+    wkl_insts = cross_product(T, (I, H))
+    logger.info("Workload Instances: {}".format(wkl_insts))
+
+    DynT, DynI, DynH = tir.DynShapeVar('T'), tir.DynShapeVar('I'), tir.DynShapeVar('H')
+
+    auto_scheduler.train(wkl_func=Dense,
+                         wkl_func_args=(B * DynT, DynI, DynH),
+                         shape_vars=[DynT, DynI, DynH], wkl_insts=wkl_insts,
+                         wkl_inst_weights=[1. for _ in wkl_insts],
+                         fcublas_fixture=cuBLASDenseFixture,
+                         sched_func_name_prefix='dense_{}xTx{}x{}'.format(B, I, H)
+                         )
 
 @tvm_dev_decor
 def test_infer_dynT(pytestconfig):
@@ -89,6 +108,24 @@ def test_infer_dynT(pytestconfig):
                          sched_log_fname=pytestconfig.getoption('sched_log_fname')
                          )
 
+@tvm_dev_decor
+def test_infer_dynT_test(pytestconfig):
+    B = 1
+    T = [4093]
+    I = 4093
+    H = 4093
+
+    wkl_insts = cross_product(T, (I, H))
+    logger.info("Workload Instances: {}".format(wkl_insts))
+
+    DynT, DynI, DynH = tir.DynShapeVar('T'), tir.DynShapeVar('I'), tir.DynShapeVar('H')
+
+    auto_scheduler.infer(wkl_func=Dense,
+                         wkl_func_args=(B * DynT, DynI, DynH),
+                         shape_vars=[DynT, DynI, DynH], wkl_insts=wkl_insts,
+                         fcublas_fixture=cuBLASDenseFixture,
+                         sched_log_fname=pytestconfig.getoption('sched_log_fname')
+                         )
 
 @tvm_dev_decor
 def test_train_BERT_H768():

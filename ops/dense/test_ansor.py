@@ -32,6 +32,16 @@ def test_train_dynT():
                              append_log=False if i == 0 else True
                              )
 
+@tvm_base_decor
+def test_train_dynT_test():
+    B, I, H = 1 , 4093 , 4093 
+    for i, T in enumerate([4093]):
+        # print(i, T)
+        auto_scheduler.train(wkl_func=Dense,
+                             wkl_func_args=(B * T, I, H),
+                             fcublas_fixture=cuBLASDenseFixture,
+                             append_log=False if i == 0 else True
+                             )
 
 @tvm_dev_decor
 def test_infer(pytestconfig):
